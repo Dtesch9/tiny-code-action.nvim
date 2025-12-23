@@ -28,7 +28,7 @@ local function calculate_window_position(lines, config)
   if position == "center" then
     local nvim_width = vim.o.columns
     local nvim_height = vim.o.lines
-    row = math.floor((nvim_height - height) / 2)
+    row = math.floor((nvim_height - height) / 2) - 100
     col = math.floor((nvim_width - width) / 2)
   else
     win_row, win_col = unpack(vim.api.nvim_win_get_position(0))
@@ -284,7 +284,13 @@ function M.create_main_window(
     end
 
     if action_item and apply_action_fn then
-      apply_action_fn(action_item.action, action_item.client, action_item.context, bufnr, action_item._resolved_action)
+      apply_action_fn(
+        action_item.action,
+        action_item.client,
+        action_item.context,
+        bufnr,
+        action_item._resolved_action
+      )
     end
     vim.api.nvim_win_close(win, true)
     preview.close_preview()
