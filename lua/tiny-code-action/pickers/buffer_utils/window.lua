@@ -22,6 +22,7 @@ local function calculate_window_position(lines, config)
   if parent_win_coords then
     return width, height, parent_win_coords.row, parent_win_coords.col
   end
+
   local row, col, win_row, win_col, shift
   local position = config.picker and config.picker.opts and config.picker.opts.position or "cursor"
 
@@ -32,8 +33,11 @@ local function calculate_window_position(lines, config)
     local inner_width = width
     local inner_height = height
 
-    local full_width = inner_width + 2
-    local full_height = inner_height + 2
+    local border_width = 1
+    local borders = border_width * 2
+
+    local full_width = inner_width + borders
+    local full_height = inner_height + borders
 
     row = math.floor((nvim_height - full_height) / 2)
     col = math.floor((nvim_width - full_width) / 2)
